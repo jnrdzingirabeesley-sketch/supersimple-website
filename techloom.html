@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech Loom – Premium Digital Solutions</title>
+<meta name="description" content="Tech Loom connects businesses with top freelancers. Services include White Hat Hacking, Programming, Web Design, Branding, Tech Consulting.">
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+<script>
+(function(){emailjs.init("YOUR_EMAILJS_USER_ID");})();
+</script>
+
+<style>
+/* General */
+body {margin:0;font-family:'Segoe UI',Arial,sans-serif;background:black;color:white;transition:0.3s;}
+a {text-decoration:none;color:white;}
+header {padding:40px 20px;background:#111;border-bottom:3px solid red;text-align:center;}
+nav {margin-top:20px;}
+nav button {margin:5px;padding:12px 22px;border-radius:30px;border:none;background:red;color:white;font-weight:bold;cursor:pointer;transition:0.3s;}
+nav button:hover {background:#ff4c4c; transform:scale(1.1);}
+section {padding:60px 20px;text-align:center;}
+.container {display:flex;flex-wrap:wrap;justify-content:center;}
+.card {background:#222;margin:15px;padding:30px;width:300px;border-radius:20px;transition:0.3s;color:white;}
+.card:hover {transform:scale(1.05);box-shadow:0 0 30px red,0 0 50px white;}
+input, textarea {padding:12px;width:230px;border-radius:12px;border:none;margin:8px 0;}
+textarea{resize:none;}
+button.action {margin-top:12px;padding:12px 0;width:220px;border-radius:12px;background:red;border:none;color:white;font-weight:bold;cursor:pointer;transition:0.3s;}
+button.action:hover {background:#ff4c4c; transform:scale(1.05);}
+
+/* Tadiswa AI */
+#tadiswa{position:fixed;bottom:20px;right:20px;width:400px;background:red;color:white;border-radius:18px;box-shadow:0 0 25px red;padding:20px;display:none;z-index:999;}
+#tadiswa h4{text-align:center;margin-top:0;}
+#tadiswa-messages{height:250px;overflow:auto;margin-bottom:12px;border:1px solid white;padding:8px;border-radius:8px;background:#111;}
+#tadiswa-input{width:calc(100% - 14px);padding:8px;border-radius:8px;border:none;}
+#chatBtn{position:fixed;bottom:20px;right:450px;padding:16px;border-radius:50%;border:none;background:red;color:white;cursor:pointer;z-index:999;box-shadow:0 0 15px red;}
+
+/* Mega Website Style */
+h1,h2,h3{margin:15px 0;}
+.section-dark{background:#111;}
+.section-light{background:#222;}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Tech Loom</h1>
+<p>Premium Digital Solutions & Freelancers</p>
+<nav>
+<button onclick="showSection('home')">Home</button>
+<button onclick="showSection('about')">About</button>
+<button onclick="showSection('services')">Services</button>
+<button onclick="showSection('team')">Team</button>
+<button onclick="showSection('request')">Request</button>
+<button onclick="showSection('contact')">Contact</button>
+</nav>
+</header>
+
+<section id="content"></section>
+
+<!-- Tadiswa AI -->
+<div id="tadiswa">
+<h4>Tadiswa 🤖</h4>
+<div id="tadiswa-messages"></div>
+<input id="tadiswa-input" placeholder="Ask Tadiswa anything about Tech Loom...">
+<button onclick="sendTadiswa()" class="action">Send</button>
+</div>
+<button id="chatBtn" onclick="toggleTadiswa()">💬</button>
+
+<script>
+let requests=[];
+
+// Load default section
+window.onload=function(){showSection('home');}
+
+// SHOW SECTIONS
+function showSection(section){
+const content=document.getElementById("content");
+if(section==='home'){
+content.innerHTML=`
+<h2>Welcome to Tech Loom</h2>
+<p>We connect businesses with top freelancers for Web, Programming, Branding, and Cybersecurity.</p>
+<div class="container">
+<div class="card"><h3>White Hat Hacking</h3><p>Ethical hacking & cybersecurity services for safe systems.</p></div>
+<div class="card"><h3>Programming</h3><p>Web, software, and mobile app development.</p></div>
+<div class="card"><h3>Web Design</h3><p>Professional UI/UX and Branding solutions.</p></div>
+<div class="card"><h3>Tech Consulting</h3><p>Expert advice for your business growth.</p></div>
+</div>`;
+}
+else if(section==='about'){
+content.innerHTML=`
+<h2>About Tech Loom</h2>
+<div class="container">
+<div class="card"><h3>Mission</h3><p>Empower young developers, ethical hackers, and freelancers worldwide.</p></div>
+<div class="card"><h3>Vision</h3><p>Become the leading digital platform connecting businesses with skilled talent.</p></div>
+<div class="card"><h3>About Tadiswa</h3><p>Tadiswa is Tech Loom's AI assistant, ready to help with questions about services, team, and requests.</p></div>
+</div>`;
+}
+else if(section==='services'){
+content.innerHTML=`
+<h2>Our Services</h2>
+<div class="container">
+<div class="card"><h3>White Hat Hacking</h3><p>Cybersecurity and ethical hacking services.</p></div>
+<div class="card"><h3>Programming & Development</h3><p>Full stack web and mobile app development.</p></div>
+<div class="card"><h3>Web Design & Branding</h3><p>UI/UX and branding solutions to boost your business.</p></div>
+<div class="card"><h3>Tech Consulting</h3><p>Expert guidance and strategy consulting for digital growth.</p></div>
+</div>`;
+}
+else if(section==='team'){
+content.innerHTML=`
+<h2>Meet Our Team</h2>
+<div class="container">
+<div class="card"><h3>Beesley</h3><p>Lead Web Developer & Cybersecurity Specialist</p></div>
+<div class="card"><h3>Nokutenda</h3><p>Graphic Designer & Branding Expert</p></div>
+</div>`;
+}
+else if(section==='request'){
+content.innerHTML=`
+<h2>Request a Service</h2>
+<input id="name" placeholder="Your Name"><br>
+<textarea id="service" placeholder="Describe your request"></textarea><br>
+<button class="action" onclick="submitRequest()">Submit Request</button>
+<div id="requests"></div>`;
+displayRequests();
+}
+else if(section==='contact'){
+window.open("https://mail.google.com/mail/?view=cm&fs=1&to=jnrtechloom@gmail.com", "_blank");
+}
+}
+
+// REQUEST FORM
+function submitRequest(){
+let name=document.getElementById("name").value;
+let service=document.getElementById("service").value;
+if(name===""||service===""){alert("Fill all fields!"); return;}
+
+// Send via EmailJS
+emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",{from_name:name,message:service,to_email:"jnrtechloom@gmail.com"})
+.then(()=>alert("Request sent successfully!"))
+.catch(e=>alert("Error sending request: "+e));
+
+requests.push({name,service});
+localStorage.setItem("requests",JSON.stringify(requests));
+displayRequests();
+
+document.getElementById("name").value="";
+document.getElementById("service").value="";
+}
+
+function displayRequests(){
+let output="<h3>Requests</h3>";
+requests.forEach(r=>output+=`<div class="card"><b>${r.name}</b><br>${r.service}</div>`);
+document.getElementById("requests").innerHTML=output;
+}
+
+// Tadiswa AI
+function toggleTadiswa(){
+const chat=document.getElementById("tadiswa");
+chat.style.display=(chat.style.display==="none")?"block":"none";
+}
+
+function sendTadiswa(){
+const input=document.getElementById("tadiswa-input");
+const messages=document.getElementById("tadiswa-messages");
+const text=input.value.trim();
+if(!text) return;
+messages.innerHTML+=`<div><b>You:</b> ${text}</div>`;
+let reply="Sorry, I don't understand. Ask about services, hiring, or team.";
+
+const msg=text.toLowerCase();
+if(msg.includes("services")) reply="Services: White Hat Hacking, Programming, Web Design & Branding, Tech Consulting.";
+else if(msg.includes("hire")||msg.includes("freelancer")) reply="Use Request form or Contact Us to hire freelancers.";
+else if(msg.includes("team")||msg.includes("who")) reply="Team: Beesley – Lead Web Developer & Cybersecurity Specialist; Nokutenda – Graphic Designer & Branding Expert.";
+else if(msg.includes("tadiswa")) reply="I am Tadiswa, Tech Loom's AI assistant. Ask me about services, team, or requests.";
+else if(msg.includes("about")) reply="Tech Loom connects businesses with skilled freelancers. We offer programming, branding, web design, and cybersecurity.";
+else if(msg.includes("contact")) reply="Click Contact Us to email us directly.";
+
+messages.innerHTML+=`<div><b>Tadiswa:</b> ${reply}</div>`;
+messages.scrollTop=messages.scrollHeight;
+input.value="";
+}
+</script>
+</body>
+</html>
