@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DevNest Connect</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            background: linear-gradient(135deg, #0a192f, #020c1b);
+            color: white;
+        }
+
+        header {
+            padding: 20px;
+            text-align: center;
+            background: rgba(0,0,0,0.3);
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav button {
+            margin: 5px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: none;
+            background: #00bfff;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        nav button:hover {
+            background: #0095d6;
+        }
+
+        section {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            margin: 15px;
+            padding: 20px;
+            width: 280px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #00bfff;
+        }
+
+        input {
+            padding: 10px;
+            width: 220px;
+            border-radius: 10px;
+            border: none;
+            margin: 5px;
+        }
+
+        button.action {
+            margin-top: 10px;
+            padding: 10px;
+            width: 200px;
+            border-radius: 10px;
+            background: #00bfff;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button.action:hover {
+            background: #0095d6;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>DevNest Connect</h1>
+    <p>Connecting Businesses with Skilled Freelancers & Cyber Experts</p>
+
+    <nav>
+        <button onclick="home()">Home</button>
+        <button onclick="showFreelancers()">Freelancers</button>
+        <button onclick="showForm()">Request</button>
+        <button onclick="about()">About</button>
+    </nav>
+</header>
+
+<section id="content"></section>
+
+<script>
+
+// Save requests in localStorage
+let requests = JSON.parse(localStorage.getItem("requests")) || [];
+
+// HOME PAGE
+function home() {
+    document.getElementById("content").innerHTML = `
+        <h2>Welcome to DevNest Connect</h2>
+        <p>We provide professional freelance services and digital solutions that help your business thrive.</p>
+        
+        <div class="container">
+
+            <div class="card">
+                <h3>White Hat Hacking</h3>
+                <p>Ethical hacking and security audits to protect your systems and data from cyber threats.</p>
+            </div>
+
+            <div class="card">
+                <h3>Programming & Development</h3>
+                <p>Web, software, and mobile app development using modern technologies.</p>
+            </div>
+
+            <div class="card">
+                <h3>Web Design & Branding</h3>
+                <p>Professional websites and branding solutions for your business identity.</p>
+            </div>
+
+            <div class="card">
+                <h3>Tech Consulting</h3>
+                <p>Expert advice on technology strategy, digital growth, and IT solutions.</p>
+            </div>
+
+        </div>
+    `;
+}
+
+// FREELANCERS PAGE
+function showFreelancers() {
+    document.getElementById("content").innerHTML = `
+        <h2>Our Freelancers</h2>
+        <div class="container">
+
+            <div class="card">
+                <h3>Beesley</h3>
+                <p>Web Developer & White Hat Hacker</p>
+                <p>📧 jnrdzingirabeesley@gmail.com</p>
+                <button class="action" onclick="hire('Beesley')">Hire Me</button>
+                <button class="action" onclick="whatsapp('263716035518')">WhatsApp</button>
+            </div>
+
+            <div class="card">
+                <h3>Nokutenda</h3>
+                <p>Graphic Designer & Branding Expert</p>
+                <p>📧 machipandanokutenda@email.com</p>
+                <button class="action" onclick="hire('Nokutenda')">Hire Me</button>
+                <button class="action" onclick="whatsapp('263714162442')">WhatsApp</button>
+            </div>
+
+        </div>
+    `;
+}
+
+// REQUEST FORM
+function showForm() {
+    document.getElementById("content").innerHTML = `
+        <h2>Request a Service</h2>
+        <input id="name" placeholder="Your Name"><br>
+        <input id="service" placeholder="What do you need?"><br>
+        <button class="action" onclick="submitForm()">Submit</button>
+        <div id="requests"></div>
+    `;
+    displayRequests();
+}
+
+// SUBMIT REQUEST
+function submitForm() {
+    let name = document.getElementById("name").value;
+    let service = document.getElementById("service").value;
+
+    if(name === "" || service === "") {
+        alert("Please fill all fields!");
+        return;
+    }
+
+    requests.push({name, service});
+    localStorage.setItem("requests", JSON.stringify(requests));
+    displayRequests();
+
+    document.getElementById("name").value = "";
+    document.getElementById("service").value = "";
+}
+
+// DISPLAY REQUESTS
+function displayRequests() {
+    let output = "<h3>Requests</h3>";
+    requests.forEach(r => {
+        output += `<div class="card"><b>${r.name}</b><br>${r.service}</div>`;
+    });
+    document.getElementById("requests").innerHTML = output;
+}
+
+// ABOUT PAGE
+function about() {
+    document.getElementById("content").innerHTML = `
+        <h2>About DevNest Connect</h2>
+        <div class="container">
+
+            <div class="card">
+                <h3>Our Mission</h3>
+                <p>To empower young developers, ethical hackers, and freelancers to provide top-tier services worldwide.</p>
+            </div>
+
+            <div class="card">
+                <h3>Our Vision</h3>
+                <p>To become the leading digital platform for freelancers, bridging businesses with skilled talent.</p>
+            </div>
+
+            <div class="card">
+                <h3>Our Services</h3>
+                <p>White Hat Hacking, Programming & Software Development, Web Design & Branding, Tech Consulting, and more.</p>
+            </div>
+
+            <div class="card">
+                <h3>Why Choose Us</h3>
+                <p>We provide reliable, professional, and secure services tailored to your business needs.</p>
+            </div>
+
+        </div>
+    `;
+}
+
+// EXTRA FUNCTIONS
+function hire(name) {
+    alert("You are hiring " + name);
+}
+
+function whatsapp(number) {
+    window.open("https://wa.me/" + number);
+}
+
+// LOAD HOME PAGE
+home();
+
+</script>
+
+</body>
+</html>
